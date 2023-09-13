@@ -1,8 +1,8 @@
 export class NotesDom{
   constructor(
-    id: number,
-    title: string,
-    description: string,
-    createdAt: Date
+    readonly id: number,
+    readonly title: string,
+    readonly description: string,
+    readonly createdAt: Date
   ){}
 }

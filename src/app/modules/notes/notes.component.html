@@ -22,22 +22,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
+            <tr *ngFor="let item of items">
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.title | uppercase}}</td>
+              <td>{{item.description | uppercase}}</td>
+              <td>{{item.createdAt | date:'dd-MM-yyyy HH:mm:ss'}}</td>
             </tr>
           </tbody>
         </table>
@@ -52,23 +41,26 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Formulario</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form #notesForm="ngForm" (submit)="save()">
         <div class="modal-body">
-          <form>
             <div class="mb-3">
               <label for="inputTitle" class="form-label">Titulo</label>
-              <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp">
+              <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp"
+               [(ngModel)]="form.title" #name="ngModel" name="title">
               <div id="titleHelp" class="form-text">Este es el enunciado donde muestra la nota.</div>
             </div>
             <div class="mb-3">
               <label for="inputDescription" class="form-label">Descripcion</label>
-              <textarea class="form-control" id="inputDescription" rows="3"></textarea>
+              <textarea class="form-control" id="inputDescription" rows="3"
+                [(ngModel)]="form.description" #name="ngModel" name="description"
+              ></textarea>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
