@@ -18,8 +18,6 @@ export class ListNotesUsecaseDom extends Command<Promise<Result<NotesDom[], Fail
   }
 
   async execute(param: NoParams): Promise<Result<NotesDom[], Failure>> {
-    console.log('usecase');
-
     return this.notesRepositoryDom.list()
   }
 

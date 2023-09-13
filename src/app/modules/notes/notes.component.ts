@@ -15,7 +15,6 @@ export class NotesComponent {
   async ngOnInit() {
     const noParams: NoParams = {};
     const res = await this._listNotesUsecaseDom.execute(noParams)
-    console.log(res)
   }
 
 

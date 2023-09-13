@@ -7,8 +7,13 @@ const Routing: Routes = [
       import('./notes/notes.module').then((_) => _.NotesModule),
   },
   {
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((_) => _.HomeModule),
+  },
+  {
     path: '',
-    redirectTo: '/notes',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {

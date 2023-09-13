@@ -8,7 +8,7 @@ import { RepositoryImplService } from './data/notes/services/repository.impl';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

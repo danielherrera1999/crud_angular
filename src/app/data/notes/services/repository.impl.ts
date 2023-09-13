@@ -19,7 +19,6 @@ export class RepositoryImplService extends AxiosDataSource implements NotesRepos
   async list(): Promise<Result<NotesDom[], Failure>> {
     try {
       const res: NotesDto[] = this._localStorageService.get('notes')
-
       return new Right<NotesDom[]>(res.map((_) => NotesMapper.mapDTOtoDOM(_)))
     } catch (error) {
       return new Left<ServerFailure>(new ServerFailure(''));
