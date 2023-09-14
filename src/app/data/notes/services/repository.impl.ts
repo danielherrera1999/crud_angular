@@ -17,6 +17,7 @@ export class RepositoryImplService extends AxiosDataSource implements NotesRepos
     super();
   }
 
+
   async list(): Promise<Result<NotesDom[], Failure>> {
     try {
       const res: NotesDto[] = await this._localStorageService.get('notes')
@@ -43,10 +44,18 @@ export class RepositoryImplService extends AxiosDataSource implements NotesRepos
       const res:NotesDto  = await this._localStorageService.edit(
         'notes',
         param.id?.toString() ?? '',
-        NotesMapper.mapDOMtoDTOAdd(param)
+        NotesMapper.mapDOMtoDTOEdit(param)
       )
-
       return new Right<NotesDom>(NotesMapper.mapDTOtoDOM(res))
+    } catch (error) {
+      return new Left<ServerFailure>(new ServerFailure(''));
+    }
+  }
+
+  async remove(param: Number): Promise<Result<Boolean, Failure>> {
+    try {
+      await this._localStorageService.deleteItem('notes', param.toString() ?? '')
+      return new Right<Boolean>(true)
     } catch (error) {
       return new Left<ServerFailure>(new ServerFailure(''));
     }

@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotesRepositoryDom } from './domain/notes/repository/notes.repository';
 import { RepositoryImplService } from './data/notes/services/repository.impl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { RepositoryImplService } from './data/notes/services/repository.impl';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: NotesRepositoryDom, useClass: RepositoryImplService},

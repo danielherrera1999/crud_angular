@@ -9,4 +9,5 @@ export abstract class NotesRepositoryDom {
   abstract list() : Promise<Result<NotesDom[], Failure>>;
   abstract add(param: NotesRequestDom) : Promise<Result<NotesDom, Failure>>;
   abstract edit(param: NotesRequestDom) : Promise<Result<NotesDom, Failure>>;
+  abstract remove(param: Number) : Promise<Result<Boolean, Failure>>;
 }

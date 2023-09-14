@@ -1,67 +1,69 @@
 <div>
-  <div class="container-fluid">
-    <div class="row my-4">
-      <div class="col-lg-9 mx-auto text-center">
-        <h4>NOTAS</h4>
-      </div>
-      <div class="col-lg-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Agregar
-        </button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-9 mx-auto my-8">
-        <table class="table table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">TITULO</th>
-              <th scope="col">DESCRIPCION</th>
-              <th scope="col">FECHA DE CREACION</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items">
-              <th scope="row">{{item.id}}</th>
-              <td>{{item.title | uppercase}}</td>
-              <td>{{item.description | uppercase}}</td>
-              <td>{{item.createdAt | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Formulario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form #notesForm="ngForm" (submit)="save()">
-        <div class="modal-body">
-            <div class="mb-3">
-              <label for="inputTitle" class="form-label">Titulo</label>
-              <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp"
-               [(ngModel)]="form.title" #name="ngModel" name="title">
-              <div id="titleHelp" class="form-text">Este es el enunciado donde muestra la nota.</div>
+    <div class="container-fluid">
+        <div class="row my-4">
+            <div class="col-lg-9 mx-auto text-center">
+                <h4>NOTAS</h4>
             </div>
-            <div class="mb-3">
-              <label for="inputDescription" class="form-label">Descripcion</label>
-              <textarea class="form-control" id="inputDescription" rows="3"
-                [(ngModel)]="form.description" #name="ngModel" name="description"
-              ></textarea>
+            <div class="col-lg-3">
+                <button class="btn btn-primary" (click)="openModal(); isEdit = false">
+                Agregar
+              </button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+        <div class="row">
+            <div class="col-lg-9 mx-auto my-8">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">TITULO</th>
+                            <th scope="col">DESCRIPCION</th>
+                            <th scope="col">FECHA DE CREACION</th>
+                            <th scope="col">ESTADOS</th>
+                            <th scope="col">OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of items; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item.title | uppercase}}</td>
+                            <td>{{item.description | uppercase}}</td>
+                            <td>{{item.createdAt | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td>
+                                <i [ngClass]="{'fa': true, 'fa-check': item.status, 'fa-times': !item.status, 'text-success': item.status, 'text-danger': !item.status}"></i>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning mx-1" (click)="openModal(item);isEdit = true">
+                                  Editar
+                                </button>
+                                <button type="button" class="btn btn-danger mx-1" (click)="delete(item.id)">
+                                  Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
+    <!-- Modal -->
+    <app-modal [modalTitle]="'Título del Modal'" [modalOpen]="modalOpen" (modalClosed)="closeModal()" (modalSaved)="save()">
+        <form #notesForm="ngForm">
+            <div class="mb-3">
+                <label for="inputTitle" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" [(ngModel)]="form.title" #name="ngModel" name="title">
+                <div id="titleHelp" class="form-text">Este es el enunciado donde muestra la nota.</div>
+            </div>
+            <div class="mb-3">
+                <label for="inputDescription" class="form-label">Descripcion</label>
+                <textarea class="form-control" id="inputDescription" rows="3" [(ngModel)]="form.description" #name="ngModel" name="description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label" for="inputStatus">Estado</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="inputStatus" [(ngModel)]="form.status" #name="ngModel" name="status" checked>
+                </div>
+            </div>
         </form>
-      </div>
-    </div>
-  </div>
+    </app-modal>
 </div>

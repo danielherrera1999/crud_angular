@@ -1,0 +1,18 @@
+<div class="modal fade" [ngClass]="{'show': modalOpen, 'fade': !modalOpen}" tabindex="-1" [style.display]="modalOpen ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="genericModalLabel">{{ modalTitle }}</h5>
+                <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido del modal -->
+                <ng-content></ng-content>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="saveModal()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

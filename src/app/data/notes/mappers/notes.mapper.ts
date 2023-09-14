@@ -13,6 +13,7 @@ export class NotesMapper {
       id: dto.id,
       title: dto.title,
       description: dto.description,
+      status: dto.status,
       createdAt: dto.createdAt
     };
     return dom;
@@ -23,8 +24,20 @@ export class NotesMapper {
       id: null,
       title: dom.title,
       description: dom.description,
+      status: dom.status,
       createdAt: dom.createdAt
     };
     return dto;
-  }
+  };
+
+  static mapDOMtoDTOEdit(dom: NotesRequestDom) : NotesRequestDto {
+    const dto: NotesRequestDto = {
+      id: dom.id,
+      title: dom.title,
+      description: dom.description,
+      status: dom.status,
+      createdAt: dom.createdAt
+    };
+    return dto;
+  };
 }

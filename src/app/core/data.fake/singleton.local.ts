@@ -50,27 +50,43 @@ export class LocalStorageService {
   }
 
   //PUT THE DATA OF LOCALSTORAGE
-  edit(key: string, objectId: string, newData: Object): any {
+  edit(key: string, objectId: string, newData: any): any {
+    console.log(objectId);
+
     const dataArray = this.get(key);
-
-    if (dataArray) {
-      // Encuentra el índice del objeto que deseas editar
-      const index = dataArray.findIndex((item: any) => item.id === objectId);
-
+    if (dataArray && dataArray.length > 0) {
+      //console.log(dataArray.find((_) => _.id = newData.id));
+      const index = dataArray.findIndex((_) => _.id == newData.id)
       if (index !== -1) {
-        // Realiza la edición en el objeto específico
+        // Reemplaza el objeto antiguo con el nuevo objeto actualizado
         dataArray[index] = { ...dataArray[index], ...newData };
 
-        // Guarda el arreglo actualizado en el localStorage
-        this.save(key, dataArray);
+        this.localStorage.setItem(key, JSON.stringify(dataArray));
       }
     }
-
-    return dataArray
+    return newData
   }
 
   // Eliminar un objeto del almacenamiento local
   remove(key: string): void {
     this.localStorage.removeItem(key);
+  }
+
+  deleteItem(key: string, objectId: string): void {
+    // Obtén el array existente del localStorage
+    const dataArray = this.get(key);
+
+    if (dataArray && dataArray.length > 0) {
+      // Encuentra el índice del objeto que deseas eliminar
+      const index = dataArray.findIndex((item: any) => item.id === objectId);
+
+      if (index !== -1) {
+        // Usa el método splice() para eliminar el elemento en el índice encontrado
+        dataArray.splice(index, 1);
+
+        // Guarda el array actualizado en el localStorage
+        this.localStorage.setItem(key, JSON.stringify(dataArray));
+      }
+    }
   }
 }
